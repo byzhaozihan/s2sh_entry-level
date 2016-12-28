@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>ssh</display-name>
+  <filter>
+  	<filter-name>struts2</filter-name>
+  	<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>struts2</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+ <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!-- 
+  	Spring提供了ContextLoaderListener，该监听器实现了ServletContextListener接口，他在Web应用程序启动时被触发。
+  	当他创建时会自动查找WEB-INF/下的applicationContext.xml，所以当只有一个配置文件且文件名为applicationContext.xml时，
+  	则只需要在web.xml文件中配置ContextLoaderListener监听器即可.当有多个配置文件需要载入，则应该使用<context-param>元素指定配置文件的文件名，
+  	ContextLoaderListener加载时，会查找名为contextConfigLocation的初始化参数。当Web应用程序启动时先读取web.xml文件，然后创建spring容器，
+  	之后根据配置文件内容，装配Bean实例。
+  
+   -->
+  
+  
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>/WEB-INF/applicationContext.xml</param-value>
+  </context-param>
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

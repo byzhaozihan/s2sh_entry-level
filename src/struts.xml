@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+	
+	<!-- 
+		spring托管将Struts2中的Action的实例化工作交由Spring容器统一管理，同时使Struts2中的Action实例能够访问Spring提供的业务逻辑资源，spring容器
+		依赖注入的优势也可以体现，Struts2提供的spring插件struts2-spring-plugin-2.3.16.3.jar配合
+		<constant name="struts.objectFactory" value="spring">使得Struts2的action由Spring来负责进行实例化
+	 -->
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<package name="default" namespace="/" extends="struts-default">
+		<!-- class属性值是spring定义的Bean，当执行execute（）返回success时，控制转到另一个动作memberQuery -->
+		<action name="memberRegister" class="memberRegisterAction">
+			<result name="success" type="redirectAction">/memberQuery</result>
+		</action>
+		
+		<action name="memberLogin" class="memberLoginAction">
+			<result name="success">/welcome.jsp</result>
+			<result name="error">/register.jsp</result>
+		</action>
+		
+		<action name="memberQuery" class="memberQueryAction">
+			<result name="success">/displayAll.jsp</result>
+		</action>
+		
+		<action name="memberDelete" class="memberDeleteAction">
+			<result name="success" type="redirectAction">/memberQuery</result>
+		</action>
+		
+		<action name="memberShow" class="memberUpdateAction" method="showMember">
+			<result name="success">/update.jsp</result>
+		</action>
+		
+		<action name="memberUpdate" class="memberUpdateAction">
+			<result name="success" type="redirectAction">/memberQuery</result>
+		</action>
+	</package>
+</struts>
